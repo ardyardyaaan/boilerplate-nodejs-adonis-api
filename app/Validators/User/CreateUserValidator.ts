@@ -24,18 +24,22 @@ export default class CreateUserValidator {
    *    ```
    */
   public schema = schema.create({
-    id_card: schema.string.nullable(),
+    id_card: schema.string.nullable({}, [
+      rules.unique({ table: 'users', column: 'id_card'})
+    ]),
     name: schema.string(),
     email: schema.string({}, [
-      rules.email()
+      rules.email(),
+      rules.unique({ table: 'users', column: 'email'})
     ]),
     password: schema.string({}, [
       rules.confirmed()
     ]),
-    phone: schema.string.nullable(),
+    phone: schema.string.nullable({}, [
+      rules.unique({ table: 'users', column: 'phone'})
+    ]),
     address: schema.string.nullable(),
     fcm_token: schema.string.nullable()
-
   })
 
   /**
@@ -49,5 +53,6 @@ export default class CreateUserValidator {
    * }
    *
    */
-  public messages: CustomMessages = {}
+  public messages: CustomMessages = {
+  }
 }

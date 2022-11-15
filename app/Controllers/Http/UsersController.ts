@@ -1,28 +1,19 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import CreateUser from 'App/Validators/User/CreateUserValidator'
 import User from 'App/Models/User'
 
 export default class UsersController {
 
     public async create({ request, response }: HttpContextContract) {
-        const input = request.only([
-            'id_card',
-            'name',
-            'email',
-            'password',
-            'phone',
-            'address',
-            'fcm_token',
-            'is_social',
-            'is_reset',
-            'last_login',
-            'status'
-        ])
-        
+        //validate request payload
+        const payload = await request.validate(CreateUser)
         try {
+            //hash md5 password
             var crypto = require('crypto')
-            var hashedPassword = crypto.createHash('md5').update(input['password']).digest('hex')
-            input['password'] = hashedPassword
-            const users = await User.create(input)
+            var hashedPassword = crypto.createHash('md5').update(payload.password).digest('hex')
+            payload.password = hashedPassword
+            //insert data
+            const users = await User.create(payload)
     
             return response.status(200).json({ code: 200, status: 'success', data: users })
         } catch (err) {
