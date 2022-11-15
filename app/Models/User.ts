@@ -28,10 +28,10 @@ export default class User extends BaseModel {
   public fcm_token: string
 
   @column()
-  public is_social: bigint
+  public is_social: number
 
   @column()
-  public is_reset: bigint
+  public is_reset: number
 
   @column()
   public last_login: DateTime
@@ -43,13 +43,13 @@ export default class User extends BaseModel {
   public created_at: DateTime
 
   @column()
-  public created_by: bigint
+  public created_by: number
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updated_at: DateTime
 
   @column()
-  public updated_by: bigint
+  public updated_by: number
 
   @column()
   public deleted_at: DateTime

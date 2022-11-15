@@ -33,6 +33,9 @@ Route.group(() => {
     //USERS
     Route.group(() => {
       Route.post('create', 'UsersController.create') // /api/v1/users/create
+      Route.get('list', 'UsersController.index') // /api/v1/users/list
+      Route.get('detail', 'UsersController.detail') // /api/v1/users/detail
+      Route.post('edit', 'UsersController.edit') // /api/v1/users/detail
     }).prefix('/users')
 
   }).prefix('/v1')
